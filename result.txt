@@ -1,0 +1,78 @@
+
+Prétraitement → TF-IDF → Algorithme Firefly → Naïve Bayes (GaussianNB)
+
+=== Naïve Bayes (GaussianNB) ===
+Accuracy:   0.528
+Precision:  0.594
+Recall:     0.602
+F1 Score:   0.527
+Train Time: 0.16s
+
+Model saved to gaussian_nb_model.pkl
+
+
+Prétraitement → TF-IDF → Algorithme Firefly → SVM
+
+=== SVM (linear) ===
+......*....*.*
+optimization finished, #iter = 10738
+obj = -2862.467396, rho = -0.853179
+nSV = 3847, nBSV = 2786
+Total nSV = 3847
+[LibSVM]Accuracy:   0.752
+Precision:  0.712
+Recall:     0.643
+F1 Score:   0.655
+Train Time: 17.23s
+
+Model saved to svm_model.pkl
+
+
+
+Prétraitement → TF-IDF → Algorithme Firefly → Multinomial Naive Bayes
+
+=== Multinomial Naïve Bayes ===
+Accuracy:   0.750
+Precision:  0.743
+Recall:     0.610
+F1 Score:   0.614
+Train Time: 0.07s
+
+Model saved to multinomial_nb_model.pkl
+
+Prétraitement → TF-IDF → Algorithme Firefly → complement Naive Bayes
+
+=== Complement Naïve Bayes ===
+Accuracy:   0.689
+Precision:  0.651
+Recall:     0.669
+F1 Score:   0.655
+Train Time: 0.07s
+
+Model saved to complement_nb_model.pkl
+
+
+
+
+## Observations:
+
+ > SVM offre la meilleure accuracy (0.752),mais son temps d’entraînement 
+est le plus long (~17 s).
+ > Multinomial Naïve Bayes est juste derrière en termes d’accuracy (0.750) 
+ et s’entraîne très vite (0.07 s).
+ > Complement Naïve Bayes a une accuracy plus modeste (0.689), mais un F1 
+ Score égal à celui de SVM (0.655), ce qui indique que pour certaines classes, 
+ la répartition des prédictions est équilibrée.
+ > Naïve Bayes (GaussianNB) obtient la plus faible accuracy (0.528) et un F1 
+ de 0.527, reflet d’une hypothèse gaussienne moins adaptée aux données textuelles.
+
+
+##Choix du Modèle
+
+Pour une meilleure performance brute, SVM l’emporte.
+Pour un temps d’entraînement minime avec des performances tout de même élevées,
+MultinomialNB est souvent un très bon compromis dans le cas de la classification de texte.
+ComplementNB est intéressant si vous gérez des données déséquilibrées (mais ici, ce n’est 
+pas le plus performant en accuracy globale).
+GaussianNB est le moins performant, sans doute en raison de l’hypothèse de distribution 
+continue peu adaptée à la nature du texte.

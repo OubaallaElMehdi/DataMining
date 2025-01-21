@@ -1,0 +1,13 @@
+pip install pandas numpy scikit-learn nltk
+
+
+
+envirement :
+python -m venv venv
+
+ativate the envirement :
+venv\Scripts\activate
+
+
+python
+
