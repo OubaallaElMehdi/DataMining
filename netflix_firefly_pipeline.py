@@ -50,7 +50,7 @@ def preprocess_text(text):
 X_processed = X_raw.apply(preprocess_text)
 
 ##########################################################
-# 3) FEATURE EXTRACTION (TF-IDF) - WITH LIMITED FEATURES
+# 3) FEATURE EXTRACTION (TF-IDF) 
 ##########################################################
 tfidf = TfidfVectorizer(max_features=2000)
 X_tfidf = tfidf.fit_transform(X_processed)
@@ -59,12 +59,7 @@ X_tfidf = tfidf.fit_transform(X_processed)
 # 4) FEATURE SELECTION (FIRELY ALGORITHM) - Placeholder
 ##########################################################
 def firefly_feature_selection(X, y):
-    """
-    Placeholder function for the Firefly Algorithm.
-    In a real scenario, you'd implement or call a library function
-    to select the best subset of features.
-    """
-    return np.arange(X.shape[1])  # Return all feature indices
+    return np.arange(X.shape[1])
 
 selected_indices = firefly_feature_selection(X_tfidf, y)
 X_selected = X_tfidf[:, selected_indices]
@@ -80,11 +75,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 # 6) FUNCTION TO TRAIN & EVALUATE A PIPELINE
 ##########################################################
 def run_pipeline(classifier, model_name, save_filename):
-    """
-    Trains 'classifier' on X_train, evaluates on X_test,
-    prints out accuracy, precision, recall, F1, and
-    saves the trained model to 'save_filename'.
-    """
     print(f"=== {model_name} ===")
 
     start_time = time.time()
@@ -151,22 +141,16 @@ run_pipeline(
 ##########################################################
 
 def plot_learning_curve_single(clf, clf_name, X, y):
-    """
-    Generates a learning curve (train & validation accuracy) for 'clf',
-    saves the figure as '<clf_name>_learning_curve.png'.
-    """
     print(f"Generating learning curve for: {clf_name}")
-    # We do 5-fold cross-validation, measuring accuracy, from 10% to 100% data
     train_sizes, train_scores, test_scores = learning_curve(
         estimator=clf,
-        X=X.toarray(),  # pass dense if needed
+        X=X.toarray(),
         y=y,
         cv=5,
         scoring='accuracy',
         n_jobs=-1,
         train_sizes=np.linspace(0.1, 1.0, 5)
     )
-
     # Calculate mean & std
     train_mean = np.mean(train_scores, axis=1)
     train_std = np.std(train_scores, axis=1)
